@@ -121,7 +121,7 @@ bool EasyRFID::writeCard(int section,int block,String value)
 {
     if(block>2 || block<0)return false;
     if(section >15 || section<0) return false;
-    if(Section==0 || block==0)return false;
+    if(section==0 || block==0)return false;
     int len=value.length();
 
     if(len>0)
@@ -145,7 +145,7 @@ bool EasyRFID::writeCard(int section,int block,String value)
 
 
 
-         return writeSection(4*Section+block,blockValue);
+         return writeSection(4*section+block,blockValue);
         //Serial.println(blockValue[2]);
     }
 
@@ -175,29 +175,29 @@ bool EasyRFID::writeSection(int index,char *value)
 }
 String EasyRFID::readCard(int section,int block)
 {
-
+         if(block>2 || block<0)return "";
+    if(section >15 || section<0) return "";
+    if(section==0 || block==0)return "";
         String value="";
         int i;
+    if (auth(PICC_AUTHENT1A, section*4+block, sectorKeyA, serNum) == MI_OK)
+    {
 
-            if (auth(PICC_AUTHENT1A, section*4+block, sectorKeyA, serNum) == MI_OK)
-            {
+        unsigned char status;
 
-                unsigned char status;
+        unsigned char str[MAX_LEN];
 
-                 unsigned char str[MAX_LEN];
-
-                status=read(section*4+block,str);
+        status=read(section*4+block,str);
 
 
-                if(status== MI_OK)
-                {
-                    value=str;
-                    value=value.substring(0,16);
-                    value.trim();
+        if(status== MI_OK)
+        {
+            value=str;
+            value=value.substring(0,16);
+            value.trim();
 
-                }
-            }
-
+        }
+    }
 
     return value;
 }

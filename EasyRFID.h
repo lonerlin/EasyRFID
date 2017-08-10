@@ -15,16 +15,16 @@ class EasyRFID : public RFID
     public:
         EasyRFID(int chipSelectPin, int NRSTPD);
         String  getSerialNumber();
-        bool writeCard(int index,String value);
+        bool writeCard(int section,int block,String value);
         bool checkCard();
-        String readCard(int index);
+        String readCard(int section,int block);
         String readTest();
         bool writeTest();
     protected:
 
     private:
         unsigned char sectorKeyA[6]= {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
-        bool writeSection(int index,char value[3][16]);
+        bool writeSection(int index,char *value);
 };
 
 #endif // EASYRFID_H
