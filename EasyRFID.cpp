@@ -121,7 +121,7 @@ bool EasyRFID::writeCard(int section,int block,String value)
 {
     if(block>2 || block<0)return false;
     if(section >15 || section<0) return false;
-    if(section==0 || block==0)return false;
+    if(section==0 && block==0)return false;
     int len=value.length();
 
     if(len>0)
