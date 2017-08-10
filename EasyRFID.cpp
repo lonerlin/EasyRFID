@@ -162,6 +162,7 @@ bool EasyRFID::writeSection(int index,char *value)
                 if(status!= MI_OK)
                 {
                     return false;
+                    Serial.println(status);
                 }
             }
             else
@@ -177,7 +178,7 @@ String EasyRFID::readCard(int section,int block)
 {
          if(block>2 || block<0)return "";
     if(section >15 || section<0) return "";
-    if(section==0 || block==0)return "";
+    if(section==0 && block==0)return "";
         String value="";
         int i;
     if (auth(PICC_AUTHENT1A, section*4+block, sectorKeyA, serNum) == MI_OK)
