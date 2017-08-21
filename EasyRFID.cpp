@@ -23,13 +23,13 @@ bool EasyRFID:: checkCard()
         Serial.println("isCard");
         if(readCardSerial())
         {
-            Serial.println("readSucceed");
+           // Serial.println("readSucceed");
             state= true;
         }else
         {
             state= false;
-            Serial.println("readfaile");
-           // init();
+           // Serial.println("readfaile");
+            init();
         }
          selectTag(serNum);
     }
@@ -71,7 +71,7 @@ bool EasyRFID::writeTest()
     unsigned char writeDate[16] ={'T', 'h', 'i', 's', ',', 'W', 'o', 'r', 'l', 'd', '!', 0, 0, 0, 0, 0};
     if (auth(PICC_AUTHENT1A, 1, sectorKeyA, serNum) == MI_OK)
         {
-                Serial.println("Pass");
+                //Serial.println("Pass");
                 unsigned char status;
                 status=write(1,writeDate);
                 if(status!= MI_OK)
@@ -81,7 +81,7 @@ bool EasyRFID::writeTest()
         }
         else
         {
-                Serial.println("Not Auth");
+                //Serial.println("Not Auth");
                 return false;
         }
 
@@ -156,18 +156,18 @@ bool EasyRFID::writeSection(int index,char *value)
 
             if (auth(PICC_AUTHENT1A, index, sectorKeyA, serNum) == MI_OK)
             {
-                Serial.println("Pass");
+                //Serial.println("Pass");
                 unsigned char status;
                 status=write(index,value);
                 if(status!= MI_OK)
                 {
                     return false;
-                    Serial.println(status);
+                    //Serial.println(status);
                 }
             }
             else
             {
-                Serial.println("Not Auth");
+                //Serial.println("Not Auth");
                 return false;
             }
 
