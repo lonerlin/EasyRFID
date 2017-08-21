@@ -1,9 +1,7 @@
-//整理者：极客工坊bg1lsy (lsy@sogou.com)
-//整理时间：2013.05.25
-#include <SPI.h>
+
 #include <RFID.h>
 
-RFID rfid(10,5);    //D10--读卡器MOSI引脚、D5--读卡器RST引脚
+EasyRFID rfid(10,5);    //D10--读卡器MOSI引脚、D5--读卡器RST引脚
 
 //4字节卡序列号，第5字节为校验字节
 unsigned char serNum[5];
@@ -51,7 +49,7 @@ void loop()
 
   //选卡，返回卡容量（锁定卡片，防止多次读写）
   rfid.selectTag(rfid.serNum);
-  
+
   //写数据卡
   blockAddr = 7;                //数据块7
   if (rfid.auth(PICC_AUTHENT1A, blockAddr, sectorKeyA[blockAddr/4], rfid.serNum) == MI_OK)  //认证
@@ -82,6 +80,6 @@ void loop()
       Serial.println((char *)str);
     }
   }
-  
+
   rfid.halt();
 }

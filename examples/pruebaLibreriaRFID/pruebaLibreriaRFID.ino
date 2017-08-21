@@ -1,9 +1,7 @@
-//整理者：极客工坊bg1lsy (lsy@sogou.com)
-//整理时间：2013.05.25
-#include <SPI.h>
-#include <RFID.h>
 
-RFID rfid(10,5);   //D10--读卡器MOSI引脚、D5--读卡器RST引脚
+#include <EasyRFID.h>
+
+EasyRFID rfid(10,5);   //D10--读卡器MOSI引脚、D5--读卡器RST引脚
 void setup()
 {
   Serial.begin(9600);
@@ -29,6 +27,6 @@ void loop()
     //选卡，可返回卡容量（锁定卡片，防止多数读取），去掉本行将连续读卡
     rfid.selectTag(rfid.serNum);
   }
-  
+
   rfid.halt();
 }
